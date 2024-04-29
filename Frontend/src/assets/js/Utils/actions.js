@@ -1,5 +1,5 @@
-export const signUpAction = 'http://localhost:3000/api/signup.php'
+export const signUpAction = 'https://freedevtools.free.nf//api/signup.php'
 
-export const signInAction = 'http://localhost:3000/api/signin.php'
+export const signInAction = 'https://freedevtools.free.nf//api/signin.php'
 
-export const confirmCodeAction = 'http://localhost:3000/api/confirm-account.php'
+export const confirmCodeAction = 'https://freedevtools.free.nf//api/confirm-account.php'
