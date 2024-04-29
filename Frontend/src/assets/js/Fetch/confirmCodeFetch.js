@@ -1,14 +1,10 @@
-export async function signInFetch(e) {
+export async function confirmCodeFetch(e, email) {
     const form = e.target
 
     const data = {
-        email: form.email.value,
-        password: form.password.value,
+        code: form.code.value,
+        email: 'williandeivitidaniel@live.com',
     }
-
-    const keepLogged = form.keepLogged.checked
-
-    console.log()
 
     const url = form.action
 
@@ -25,5 +21,5 @@ export async function signInFetch(e) {
             console.error(err)
         })
 
-    return { ...result, keepLogged}
+    return result
 }

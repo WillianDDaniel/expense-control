@@ -20,20 +20,20 @@ export default function Form({
         e.preventDefault()
 
         const result = await submitFunction(e)
-        console.log(result)
-        // if(result.success) {
+  
+        if(result.success) {
 
-        //     afterSubmit(e, result)
-        //     setMessage(result.message)
+            setMessage(result.message)
+            afterSubmit(e, result)
 
-        // } else {
-        //     setMessage(result.message)
-        // }
+        } else {
+            setMessage(result.message)
+        }
     }
 
     return (
         <form action={action} onSubmit={handleSubmit}
-            className="flex flex-col items-center bg-slate-500 w-5/12 rounded"
+            className="flex flex-col items-center mt-5 bg-slate-200 w-5/12 rounded"
         >
 
             <h2 className="text-2xl p-2">
@@ -43,6 +43,12 @@ export default function Form({
             <div className="flex flex-wrap w-full justify-center">
                 {children}
             </div>
+
+            {btnLabel === 'Entrar' &&
+                <div>
+                    <input name="keepLogged" type="checkbox" className="mr-2"/>Manter-me conectado
+                </div>
+            }
 
             <div className="h-6 mt-[-2px] mb-1 text-sm text-red-800">
                 {message &&
@@ -59,6 +65,10 @@ export default function Form({
                 </button>
 
             </div>
+
+            {btnLabel === 'Entrar' &&
+                <div className="mb-5">Esqueci minha senha</div>
+            }
 
         </form>
     )

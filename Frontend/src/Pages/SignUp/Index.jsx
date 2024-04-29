@@ -1,14 +1,17 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 import Navbar from "../../Components/Navbar/Index";
 import NavItems from "../../Components/NavItems/Index";
 import Main from "../../Components/Main/Index";
 import Form from "../../Components/Form/Index";
 import FormItems from "../../Components/FormItems/Index";
+import Footer from "../../Components/Footer/Index";
 
-import { signUpAction } from '../../assets/js/Utils/actions'
+import { signUpAction, confirmCodeAction } from '../../assets/js/Utils/actions'
 import { signUpFetch } from '../../assets/js/Fetch/signUpFetch'
 import { signUpForm } from '../../assets/js/Utils/formContents'
+import { confirmCodeFetch } from "../../assets/js/Fetch/confirmCodeFetch";
 import { confirmationPassword } from '../../assets/js/Utils/confirmPassword'
 import ConfirmCode from "../../Components/ConfirmCode/Index";
 
@@ -17,6 +20,8 @@ export default function SignUp() {
     // Is set False to doesn't show the message 
     // And set the message when password confirm doesn't matches
     const [passwordMessage, setPasswordMessage] = useState(false)
+
+    const navigate = useNavigate()
 
     const [confirmCode, setConfirmCode] = useState(false)
     const [email, setEmail] = useState('')
@@ -32,7 +37,7 @@ export default function SignUp() {
             setPasswordMessage('As senhas não correspondem')
         }
     }
-    
+
     const handleAfterSignUp = (e, result) => {
         const email = e.target.email.value
         setConfirmCode(true)
@@ -46,7 +51,8 @@ export default function SignUp() {
             </Navbar>
 
             <Main>
-                <button onClick={() => setConfirmCode(!confirmCode)}>toogle</button>
+
+                {/* <button onClick={() => setConfirmCode(!confirmCode)}>toogle</button> */}
                 {!confirmCode &&
                     <Form
                         action={signUpAction}
@@ -65,13 +71,17 @@ export default function SignUp() {
 
                 {confirmCode &&
                     <Form
-                        action={signUpAction}
+                        action={confirmCodeAction}
                         title={'Criar conta'}
                         btnLabel={'Enviar'}
-                        submitFunction={signUpFetch}
+                        submitFunction={(e) => confirmCodeFetch(e, email)}
                         newMessage={null}
-                        afterSubmit={()=> {
-                            
+                        afterSubmit={(e, result) => {
+                            if (result.success) {
+                                setTimeout(()=> {
+                                    navigate('/signin')
+                                }, 3000)
+                            }
                         }}
                     >
                         <ConfirmCode
@@ -80,6 +90,7 @@ export default function SignUp() {
                     </Form>
                 }
             </Main>
+            <Footer/>
         </>
     )
 }

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode'
 
 import FormItems from "../../Components/FormItems/Index"
 import Form from "../../Components/Form/Index"
@@ -11,6 +12,7 @@ import Navbar from "../../Components/Navbar/Index"
 import { signInForm } from '../../assets/js/Utils/formContents'
 import { signInFetch } from '../../assets/js/Fetch/signInFetch'
 import { signInAction } from '../../assets/js/Utils/actions'
+import Footer from '../../Components/Footer/Index'
 
 export default function SignIn() {
 
@@ -18,11 +20,11 @@ export default function SignIn() {
 
     useEffect(() => {
         const token = Cookies.get('token');
-    
+
         if (!token) {
             return;
         }
-    
+
         const tokenExpiration = new Date(Cookies.get('token_expiration'));
         if (tokenExpiration < new Date()) {
 
@@ -31,15 +33,24 @@ export default function SignIn() {
 
             navigate('/dashboard');
         }
-        
+
     }, [])
 
     const handleAfterSignIn = (e, result) => {
         if (result.token) {
-     
-            Cookies.set('token', result.token, { expires: 7, secure: true })
 
-            navigate('/dashboard')
+            if (result.keepLogged) {
+                const decodedToken = jwtDecode(result.token)
+                const expirationDate = new Date(decodedToken.exp * 1000)
+                Cookies.set('token', result.token, { expires: expirationDate, secure: true })
+                navigate('/dashboard')
+
+            } else {
+    
+                Cookies.set('token', result.token, { secure: true })
+                navigate('/dashboard')
+
+            }
         }
     }
 
@@ -52,7 +63,7 @@ export default function SignIn() {
             <Main>
                 <Form
                     action={signInAction}
-                    title={'Fazer Login'}
+                    title={'Acesse sua conta'}
                     btnLabel={'Entrar'}
                     newMessage={null}
                     submitFunction={signInFetch}
@@ -64,6 +75,7 @@ export default function SignIn() {
                     />
                 </Form>
             </Main>
+            <Footer />
         </>
     )
 }
