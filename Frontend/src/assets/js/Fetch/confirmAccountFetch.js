@@ -1,10 +1,12 @@
-export async function confirmCodeFetch(e, email) {
+export async function confirmAccountFetch(e, email) {
     const form = e.target
 
     const data = {
-        code: form.code.value,
-        email: 'williandeivitidaniel@live.com',
+        code: parseInt(form.code.value),
+        email: email,
     }
+
+    console.log(data)
 
     const url = form.action
 

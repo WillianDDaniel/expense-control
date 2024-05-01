@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import Loading from "../Loading/Index"
 
 export default function Form({
     action,
@@ -15,38 +16,42 @@ export default function Form({
     }, [newMessage])
 
     const [message, setMessage] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
+        setLoading(true)
         const result = await submitFunction(e)
-  
-        if(result.success) {
 
+        if (result.success) {
             setMessage(result.message)
             afterSubmit(e, result)
-
+            setLoading(false)
         } else {
             setMessage(result.message)
+            setLoading(false)
         }
     }
 
     return (
         <form action={action} onSubmit={handleSubmit}
-            className="flex flex-col items-center mt-5 bg-slate-200 w-5/12 rounded"
+            className="relative flex flex-col items-center mt-5 bg-slate-200 w-5/12 rounded"
         >
 
-            <h2 className="text-2xl p-2">
-                {title}
-            </h2>
+            <div className="flex flex-wrap w-full h-full justify-center">
+                
+                <h2 className="text-2xl p-2 w-full flex justify-center">
+                    {title}
+                </h2>
 
-            <div className="flex flex-wrap w-full justify-center">
                 {children}
+
             </div>
 
             {btnLabel === 'Entrar' &&
                 <div>
-                    <input name="keepLogged" type="checkbox" className="mr-2"/>Manter-me conectado
+                    <input name="keepLogged" type="checkbox" className="mr-2" />Manter-me conectado
                 </div>
             }
 
@@ -69,6 +74,11 @@ export default function Form({
             {btnLabel === 'Entrar' &&
                 <div className="mb-5">Esqueci minha senha</div>
             }
+
+            <Loading
+                loading={loading}
+                
+            />
 
         </form>
     )

@@ -1,10 +1,11 @@
 <?php 
 
+
 class Token
 {
     // Secret key for token signature
     private static $secretKey = "DSAD45DFS5412DF8748S3D5F";
-
+    
     // Method to create a token based on ID and email
     public static function createToken($id, $email)
     {
@@ -13,12 +14,12 @@ class Token
             "alg" => "HS256",
             "typ" => "JWT"
         );
-
+        
         // Create a payload with ID, email, and expiration time
         $payload = array(
             "id" => $id,
             "email" => $email,
-            "exp" => time() + (60 * 60) // Set token expiration time (1 hour)
+            "exp" => time() + (60 * 60 * 24 * 7) // Set token expiration time (1 hour)
         );
 
         // Encode header and payload as JSON

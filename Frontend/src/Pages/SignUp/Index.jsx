@@ -1,19 +1,25 @@
+// Hooks
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
+// Components
 import Navbar from "../../Components/Navbar/Index";
 import NavItems from "../../Components/NavItems/Index";
 import Main from "../../Components/Main/Index";
 import Form from "../../Components/Form/Index";
 import FormItems from "../../Components/FormItems/Index";
 import Footer from "../../Components/Footer/Index";
-
-import { signUpAction, confirmCodeAction } from '../../assets/js/Utils/actions'
-import { signUpFetch } from '../../assets/js/Fetch/signUpFetch'
-import { signUpForm } from '../../assets/js/Utils/formContents'
-import { confirmCodeFetch } from "../../assets/js/Fetch/confirmCodeFetch";
-import { confirmationPassword } from '../../assets/js/Utils/confirmPassword'
 import ConfirmCode from "../../Components/ConfirmCode/Index";
+
+// Utils
+import { signUpAction, confirmAccountAction } from '../../assets/js/Utils/actions'
+import { signUpForm } from '../../assets/js/Utils/formContents'
+import { confirmationPassword } from '../../assets/js/Utils/confirmPassword'
+
+// JS Fetch's
+import { signUpFetch } from '../../assets/js/Fetch/signUpFetch'
+import { confirmAccountFetch } from "../../assets/js/Fetch/confirmAccountFetch";
+
 
 export default function SignUp() {
 
@@ -24,6 +30,7 @@ export default function SignUp() {
     const navigate = useNavigate()
 
     const [confirmCode, setConfirmCode] = useState(false)
+    const [confirmCodeLoading, setConfirmCodeLoading] = useState(false)
     const [email, setEmail] = useState('')
 
     // Check if is equal password and confirmPassword
@@ -42,6 +49,17 @@ export default function SignUp() {
         const email = e.target.email.value
         setConfirmCode(true)
         setEmail(email)
+    }
+
+    const handleAfterConfirmCode = (e, result) => {
+        if (result.success) {
+            setConfirmCodeLoading(true)
+
+            setTimeout(()=> {
+                setConfirmCodeLoading(false)
+                navigate('/signin')
+            }, 3700)
+        }
     }
 
     return (
@@ -71,21 +89,16 @@ export default function SignUp() {
 
                 {confirmCode &&
                     <Form
-                        action={confirmCodeAction}
-                        title={'Criar conta'}
+                        action={confirmAccountAction}
+                        title={'Confirmar código'}
                         btnLabel={'Enviar'}
-                        submitFunction={(e) => confirmCodeFetch(e, email)}
+                        submitFunction={(e) => confirmAccountFetch(e, email)}
                         newMessage={null}
-                        afterSubmit={(e, result) => {
-                            if (result.success) {
-                                setTimeout(()=> {
-                                    navigate('/signin')
-                                }, 3000)
-                            }
-                        }}
+                        afterSubmit={handleAfterConfirmCode}
                     >
                         <ConfirmCode
                             email={email}
+                            confirmedCodeLoading={confirmCodeLoading}
                         />
                     </Form>
                 }

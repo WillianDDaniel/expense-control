@@ -16,18 +16,21 @@ export const signUpForm = [
         name: 'email',
         type: 'email',
         placeHolder: 'Digite seu email',
+        autoComplete: 'username',
     },
     {
         label: 'Senha',
         name: 'password',
         type: 'password',
         placeHolder: 'Digite sua senha',
+        autoComplete: 'new-password'
     },
     {
         label: 'Confirme a senha',
         name: 'confirmPassword',
         type: 'password',
         placeHolder: 'Confirme sua senha',
+        autoComplete: 'new-password',
     }
 ]
 
@@ -37,11 +40,13 @@ export const signInForm  = [
         name: 'email',
         type: 'email',
         placeHolder: 'Digite seu email',
+        autoComplete: 'username',
     },
     {
         label: 'Senha',
         name: 'password',
         type: 'password',
         placeHolder: 'Digite sua senha',
+        autoComplete: 'current-password',
     }
 ]

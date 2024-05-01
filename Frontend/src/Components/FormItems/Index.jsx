@@ -15,9 +15,11 @@ export default function FormItems({ formContent, checkPassword }) {
                             </label>
 
                             <input type={item.type} placeholder={item.placeHolder}
-                                name={item.name}
+                                name={item.name} required 
+                                minLength={item.type === 'password' ? 8 : null}
                                 onChange={item.type === 'password' ? checkPassword : null}
-                                className={`border border-black rounded px-1 py-0.5`}
+                                autoComplete={item.autoComplete && item.autoComplete}
+                                className={` rounded px-1.5 py-[2.5px] outline-none`}
                             />
                         </div>
                     )
