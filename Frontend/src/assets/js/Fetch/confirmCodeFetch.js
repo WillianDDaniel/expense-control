@@ -1,4 +1,4 @@
-export async function confirmAccountFetch(e, email) {
+export async function confirmCodeFetch(e, email) {
     const form = e.target
 
     const data = {

@@ -58,7 +58,7 @@ export default function Dashboard() {
                     <Settings />
                 }
 
-                <Footer/>
+                <Footer />
             </Sidebar>
         </div>
     )

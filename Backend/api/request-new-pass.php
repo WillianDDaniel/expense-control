@@ -19,13 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Extract user data from the received JSON
     $email = $data['email'];
-    $code = $data['code'];
-
+    
     // Instantiate UserController
     $newUser = new UserController();
     
-    // Call the checkCode method to verify the code
-    $response = $newUser->checkCode($email, $code);
+    // Call the forgotPass method to generate new code
+    $response = $newUser->forgotPass($email);
     
     // Convert the response array to JSON
     $responseJson = json_encode($response);

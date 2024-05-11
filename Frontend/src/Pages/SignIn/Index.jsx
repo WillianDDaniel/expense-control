@@ -57,7 +57,9 @@ export default function SignIn() {
     return (
         <>
             <Navbar>
-                <NavItems />
+                <NavItems 
+                    selected={'signin'}
+                />
             </Navbar>
 
             <Main>

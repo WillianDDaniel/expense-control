@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import Loading from "../Loading/Index"
+import { Link } from "react-router-dom"
 
 export default function Form({
     action,
@@ -23,7 +24,7 @@ export default function Form({
 
         setLoading(true)
         const result = await submitFunction(e)
-
+        console.log(result)
         if (result.success) {
             setMessage(result.message)
             afterSubmit(e, result)
@@ -36,11 +37,11 @@ export default function Form({
 
     return (
         <form action={action} onSubmit={handleSubmit}
-            className="relative flex flex-col items-center mt-5 bg-slate-200 w-5/12 rounded"
+            className="relative flex flex-col items-center bg-gradient-to-bl from-green-200 to-sky-200 mt-5 w-5/12 rounded"
         >
 
             <div className="flex flex-wrap w-full h-full justify-center">
-                
+
                 <h2 className="text-2xl p-2 w-full flex justify-center">
                     {title}
                 </h2>
@@ -72,12 +73,15 @@ export default function Form({
             </div>
 
             {btnLabel === 'Entrar' &&
-                <div className="mb-5">Esqueci minha senha</div>
+                <div className="mb-5 italic">
+                    <Link to='/forgot-pass'>
+                        Esqueci minha senha
+                    </Link>
+                </div>
             }
 
             <Loading
                 loading={loading}
-                
             />
 
         </form>

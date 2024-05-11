@@ -23,15 +23,15 @@ import { confirmAccountFetch } from "../../assets/js/Fetch/confirmAccountFetch";
 
 export default function SignUp() {
 
-    // Is set False to doesn't show the message 
-    // And set the message when password confirm doesn't matches
-    const [passwordMessage, setPasswordMessage] = useState(false)
-
     const navigate = useNavigate()
 
     const [confirmCode, setConfirmCode] = useState(false)
     const [confirmCodeLoading, setConfirmCodeLoading] = useState(false)
     const [email, setEmail] = useState('')
+
+    // Is set False to doesn't show the message 
+    // And set the message when password confirm doesn't matches
+    const [passwordMessage, setPasswordMessage] = useState(false)
 
     // Check if is equal password and confirmPassword
     const handleCheckPassword = (e) => {
@@ -65,7 +65,9 @@ export default function SignUp() {
     return (
         <>
             <Navbar>
-                <NavItems />
+                <NavItems 
+                    selected={'signup'}
+                />
             </Navbar>
 
             <Main>

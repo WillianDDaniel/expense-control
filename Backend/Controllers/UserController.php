@@ -250,4 +250,37 @@ class UserController
 
         return ['success' => true, 'message' => 'Update password successfully.'];
     }
+
+    public function forgotPass($email) {
+
+        // Check if the email is valid
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return ['success' => false, 'message' => 'Invalid email'];
+        }
+
+        // Fetch user by email
+        $user = User::getUserByEmail($email);
+
+        // Check if the user exists
+        if (!$user) {
+            return ['success' => false, 'message' => 'User not found.'];
+        }
+
+        $code = random_int(100000, 999999);
+
+        // Check if new code and Expiration date is save
+        if (!$user->updateCode($code)) {
+            return ['success' => false, 'message' => 'Error on update code.'];
+        }
+
+        // Resend confirmation email
+        $isEmailSent = Mailer::sendConfirmationEmail($email, $user->getName(), $code);
+
+        if (!$isEmailSent) {
+            return ['success' => false, 'message' => 'Error on send email, try again later.'];
+        }
+
+        return ['success' => true, 'message' => 'Confirmation email is resent'];
+
+    }
 }

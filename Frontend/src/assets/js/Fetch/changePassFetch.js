@@ -1,11 +1,21 @@
-export async function confirmAccountFetch(e, email) {
+export async function changePassFetch(e, email, code) {
     const form = e.target
 
     const data = {
-        code: parseInt(form.code.value),
+        code: parseInt(code),
         email: email,
+        password: form.password.value,
+        confirmPassword: form.confirmPassword.value
     }
 
+    if(data.password !== data.confirmPassword) {
+        return {
+            success: false,
+            message: 'As senhas não correspondem'
+        }
+    }
+
+    console.log(data)
     const url = form.action
 
     const options = {

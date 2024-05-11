@@ -34,7 +34,7 @@ export const signUpForm = [
     }
 ]
 
-export const signInForm  = [
+export const signInForm = [
     {
         label: 'Email',
         name: 'email',
@@ -48,5 +48,32 @@ export const signInForm  = [
         type: 'password',
         placeHolder: 'Digite sua senha',
         autoComplete: 'current-password',
+    }
+]
+
+export const forgotPassForm = [
+    {
+        label: 'Email',
+        name: 'email',
+        type: 'email',
+        placeHolder: 'Digite seu email',
+        autoComplete: 'username',
+    },
+]
+
+export const changePassForm = [
+    {
+        label: 'Nova senha',
+        name: 'password',
+        type: 'password',
+        placeHolder: 'Digite sua senha',
+        autoComplete: 'new-password'
+    },
+    {
+        label: 'Confirme a nova senha',
+        name: 'confirmPassword',
+        type: 'password',
+        placeHolder: 'Confirme sua senha',
+        autoComplete: 'new-password',
     }
 ]

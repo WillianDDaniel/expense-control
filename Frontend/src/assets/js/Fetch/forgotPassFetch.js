@@ -1,9 +1,8 @@
-export async function confirmAccountFetch(e, email) {
+export async function forgotPassFetch(e) {
     const form = e.target
 
     const data = {
-        code: parseInt(form.code.value),
-        email: email,
+        email: form.email.value,
     }
 
     const url = form.action

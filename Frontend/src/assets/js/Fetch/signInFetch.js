@@ -8,8 +8,6 @@ export async function signInFetch(e) {
 
     const keepLogged = form.keepLogged.checked
 
-    console.log()
-
     const url = form.action
 
     const options = {

@@ -20,12 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Extract user data from the received JSON
     $email = $data['email'];
     $code = $data['code'];
-
+    $password = $data['password'];
+    
     // Instantiate UserController
     $newUser = new UserController();
     
-    // Call the checkCode method to verify the code
-    $response = $newUser->checkCode($email, $code);
+    // Call the updatePassword method to change password
+    $response = $newUser->updatePassword($email, $code, $password);
     
     // Convert the response array to JSON
     $responseJson = json_encode($response);

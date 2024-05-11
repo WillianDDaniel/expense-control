@@ -11,7 +11,7 @@ export default function Home() {
             </Navbar>
 
             <Main>
-                'Children'
+                Children
             </Main>
 
             <Footer/>
