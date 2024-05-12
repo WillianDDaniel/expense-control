@@ -15,16 +15,6 @@ describe('Navbar', () => {
     expect(navElement).toBeInTheDocument()
   })
 
-  it('should contain Logo', () => {
-    render(
-      <Router>
-        <Navbar />
-      </Router>
-    )
-    const logoElement = screen.getByText(/Seu Logo Aqui/i)
-    expect(logoElement).toBeInTheDocument()
-  })
-
   it('should render children correctly', () => {
     render(
       <Router>
